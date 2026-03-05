@@ -1,7 +1,7 @@
 -- MELAYU-HUB V5 — Converted to NexusLib v2.6
 -- Tukar URL_NEXUSLIB ke raw GitHub URL NexusLib_v8.lua kau
 
-local Nexus = loadstring(game:HttpGet("https://raw.githubusercontent.com/trttttttt/Something/refs/heads/main/Some2"))()
+local Nexus = loadstring(game:HttpGet("urlkau"))()
 
 local Players          = game:GetService("Players")
 local RunService       = game:GetService("RunService")
