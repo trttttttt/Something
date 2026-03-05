@@ -1,0 +1,578 @@
+-- ╔══════════════════════════════════════════════════╗
+-- ║           MY HUB  —  Test Script                 ║
+-- ║   Loads NexusLib v2.1 from GitHub raw URL        ║
+-- ╚══════════════════════════════════════════════════╝
+
+local Nexus = loadstring(game:HttpGet(
+    "https://raw.githubusercontent.com/trttttttt/Something/refs/heads/main/Some"
+))()
+
+-- ── CREATE WINDOW ──────────────────────────────────
+local Win = Nexus:CreateWindow({
+    Title        = "My Hub",
+    SubTitle     = "v1.0",
+    Theme        = "Cyan",          -- Cyan | Neon | Cobalt | Amethyst | Crimson | Carbon | Sakura | Gold | Forest | Arctic
+    ConfigFolder = "MyHubConfigs",
+    Icon         = "zap",
+    Size         = UDim2.fromOffset(720, 500),
+})
+
+-- ══════════════════════════════════════════════════
+-- TAB 1: COMBAT
+-- ══════════════════════════════════════════════════
+local Combat = Win:CreateTab("Combat", "sword")
+
+Combat:CreateSection("Aimbot")
+
+local SilentAim = Combat:CreateToggle({
+    Name = "Silent Aim",
+    Description = "Redirect bullets to target",
+    CurrentValue = false,
+    Flag = "SilentAim",
+    Callback = function(v)
+        -- your aimbot logic
+    end,
+})
+
+Combat:CreateSlider({
+    Name = "FOV Circle",
+    Description = "Aimbot FOV radius",
+    Range = {1, 360},
+    Increment = 1,
+    CurrentValue = 90,
+    Suffix = "°",
+    Flag = "AimbotFOV",
+    Callback = function(v) end,
+})
+
+Combat:CreateDropdown({
+    Name = "Hit Part",
+    Icon = "crosshair",
+    Options = {"Head", "Torso", "HumanoidRootPart", "LeftArm", "RightArm"},
+    CurrentOption = "Head",
+    Flag = "HitPart",
+    Callback = function(v) end,
+})
+
+Combat:CreateKeybind({
+    Name = "Toggle Aim Key",
+    CurrentKeybind = "F",
+    Flag = "AimKey",
+    Callback = function() end,
+})
+
+Combat:CreateSection("Player Combat")
+
+Combat:CreateSlider({
+    Name = "WalkSpeed",
+    Range = {16, 250},
+    Increment = 1,
+    CurrentValue = 16,
+    Suffix = "",
+    Flag = "WalkSpeed",
+    Callback = function(v)
+        local lp = game.Players.LocalPlayer
+        if lp and lp.Character then
+            local hum = lp.Character:FindFirstChildOfClass("Humanoid")
+            if hum then hum.WalkSpeed = v end
+        end
+    end,
+})
+
+Combat:CreateSlider({
+    Name = "JumpPower",
+    Range = {0, 200},
+    Increment = 1,
+    CurrentValue = 50,
+    Suffix = "",
+    Flag = "JumpPower",
+    Callback = function(v)
+        local lp = game.Players.LocalPlayer
+        if lp and lp.Character then
+            local hum = lp.Character:FindFirstChildOfClass("Humanoid")
+            if hum then hum.JumpPower = v end
+        end
+    end,
+})
+
+Combat:CreateToggle({
+    Name = "Infinite Jump",
+    CurrentValue = false,
+    Flag = "InfJump",
+    Callback = function(v)
+        -- your infinite jump logic
+    end,
+})
+
+Combat:CreateToggle({
+    Name = "Auto Attack",
+    Description = "Automatically attacks nearest enemy",
+    CurrentValue = false,
+    Flag = "AutoAttack",
+    Callback = function(v) end,
+})
+
+Combat:CreateButton({
+    Name = "Kill All",
+    Description = "Kills all players in server",
+    Icon = "skull",
+    Callback = function()
+        Win:Notify({Title="Kill All", Content="Executed!", Duration=2, Icon="check"})
+    end,
+})
+
+-- ══════════════════════════════════════════════════
+-- TAB 2: ESP
+-- ══════════════════════════════════════════════════
+local ESP = Win:CreateTab("ESP", "eye")
+
+ESP:CreateSection("Player ESP")
+
+ESP:CreateToggle({
+    Name = "ESP Enabled",
+    CurrentValue = false,
+    Flag = "ESPEnabled",
+    Callback = function(v) end,
+})
+
+ESP:CreateToggle({
+    Name = "Name Tags",
+    Description = "Show player names above heads",
+    CurrentValue = false,
+    Flag = "ESPNames",
+    Callback = function(v) end,
+})
+
+ESP:CreateToggle({
+    Name = "Box ESP",
+    Description = "Draw boxes around players",
+    CurrentValue = false,
+    Flag = "ESPBox",
+    Callback = function(v) end,
+})
+
+ESP:CreateToggle({
+    Name = "Health Bar",
+    Description = "Show health bars on players",
+    CurrentValue = false,
+    Flag = "ESPHealth",
+    Callback = function(v) end,
+})
+
+ESP:CreateToggle({
+    Name = "Distance Tag",
+    Description = "Show distance to players",
+    CurrentValue = false,
+    Flag = "ESPDistance",
+    Callback = function(v) end,
+})
+
+ESP:CreateSlider({
+    Name = "ESP Max Distance",
+    Range = {50, 2000},
+    Increment = 50,
+    CurrentValue = 500,
+    Suffix = " studs",
+    Flag = "ESPMaxDist",
+    Callback = function(v) end,
+})
+
+ESP:CreateColorPicker({
+    Name = "ESP Color",
+    Color = Color3.fromRGB(0, 224, 255),
+    Flag = "ESPColor",
+    Callback = function(c) end,
+})
+
+ESP:CreateSection("World ESP")
+
+ESP:CreateToggle({
+    Name = "Item ESP",
+    Description = "Highlight items in the world",
+    CurrentValue = false,
+    Flag = "ItemESP",
+    Callback = function(v) end,
+})
+
+ESP:CreateToggle({
+    Name = "Chest ESP",
+    Description = "Show loot containers",
+    CurrentValue = false,
+    Flag = "ChestESP",
+    Callback = function(v) end,
+})
+
+ESP:CreateDropdown({
+    Name = "ESP Style",
+    Options = {"Box", "Outline", "Skeleton", "Corner Box"},
+    CurrentOption = "Box",
+    Flag = "ESPStyle",
+    Callback = function(v) end,
+})
+
+-- ══════════════════════════════════════════════════
+-- TAB 3: PLAYER
+-- ══════════════════════════════════════════════════
+local Player = Win:CreateTab("Player", "user")
+
+Player:CreateSection("Movement")
+
+Player:CreateToggle({
+    Name = "Fly",
+    Description = "Enable flight mode",
+    CurrentValue = false,
+    Flag = "Fly",
+    Callback = function(v) end,
+})
+
+Player:CreateSlider({
+    Name = "Fly Speed",
+    Range = {10, 500},
+    Increment = 5,
+    CurrentValue = 50,
+    Suffix = "",
+    Flag = "FlySpeed",
+    Callback = function(v) end,
+})
+
+Player:CreateToggle({
+    Name = "NoClip",
+    Description = "Walk through walls",
+    CurrentValue = false,
+    Flag = "NoClip",
+    Callback = function(v)
+        -- noclip logic
+    end,
+})
+
+Player:CreateToggle({
+    Name = "Speed Boost",
+    Description = "Doubles your walkspeed",
+    CurrentValue = false,
+    Flag = "SpeedBoost",
+    Callback = function(v)
+        local lp = game.Players.LocalPlayer
+        if lp and lp.Character then
+            local hum = lp.Character:FindFirstChildOfClass("Humanoid")
+            if hum then hum.WalkSpeed = v and 100 or 16 end
+        end
+    end,
+})
+
+Player:CreateSection("Appearance")
+
+Player:CreateDropdown({
+    Name = "Character Size",
+    Options = {"Normal", "Small", "Big", "Tiny", "Giant"},
+    CurrentOption = "Normal",
+    Flag = "CharSize",
+    Callback = function(v) end,
+})
+
+Player:CreateToggle({
+    Name = "God Mode",
+    Description = "Prevents you from dying",
+    CurrentValue = false,
+    Flag = "GodMode",
+    Callback = function(v) end,
+})
+
+Player:CreateSection("Utilities")
+
+Player:CreateButton({
+    Name = "Rejoin Server",
+    Icon = "refresh",
+    Callback = function()
+        local TeleportService = game:GetService("TeleportService")
+        TeleportService:Teleport(game.PlaceId, game.Players.LocalPlayer)
+    end,
+})
+
+Player:CreateButton({
+    Name = "Suicide / Reset",
+    Description = "Kills your character",
+    Icon = "skull",
+    Callback = function()
+        local lp = game.Players.LocalPlayer
+        if lp and lp.Character then
+            local hum = lp.Character:FindFirstChildOfClass("Humanoid")
+            if hum then hum.Health = 0 end
+        end
+    end,
+})
+
+Player:CreateInput({
+    Name = "Set Display Name",
+    PlaceholderText = "Enter name...",
+    Flag = "DisplayName",
+    Callback = function(v)
+        pcall(function()
+            game.Players.LocalPlayer.Character.Head.Name = v
+        end)
+    end,
+})
+
+-- ══════════════════════════════════════════════════
+-- TAB 4: TELEPORT
+-- ══════════════════════════════════════════════════
+local Teleport = Win:CreateTab("Teleport", "map")
+
+Teleport:CreateSection("Saved Locations")
+
+Teleport:CreateButton({
+    Name = "Teleport to Spawn",
+    Icon = "home",
+    Callback = function()
+        local lp = game.Players.LocalPlayer
+        pcall(function()
+            local spawn = workspace:FindFirstChildOfClass("SpawnLocation")
+            if spawn and lp.Character then
+                lp.Character:SetPrimaryPartCFrame(spawn.CFrame + Vector3.new(0,5,0))
+            end
+        end)
+    end,
+})
+
+Teleport:CreateButton({
+    Name = "Teleport to Player",
+    Icon = "users",
+    Callback = function()
+        Win:Notify({Title="Teleport", Content="Select a player in Target list first.", Duration=3, Icon="info"})
+    end,
+})
+
+Teleport:CreateDropdown({
+    Name = "Target Player",
+    Icon = "user",
+    Options = (function()
+        local names = {}
+        for _, p in ipairs(game.Players:GetPlayers()) do
+            table.insert(names, p.Name)
+        end
+        return names
+    end)(),
+    Flag = "TeleportTarget",
+    Callback = function(v) end,
+})
+
+Teleport:CreateSection("Custom Teleport")
+
+Teleport:CreateInput({
+    Name = "X Position",
+    PlaceholderText = "0",
+    Flag = "TpX",
+    Callback = function(v) end,
+})
+
+Teleport:CreateInput({
+    Name = "Y Position",
+    PlaceholderText = "0",
+    Flag = "TpY",
+    Callback = function(v) end,
+})
+
+Teleport:CreateInput({
+    Name = "Z Position",
+    PlaceholderText = "0",
+    Flag = "TpZ",
+    Callback = function(v) end,
+})
+
+Teleport:CreateButton({
+    Name = "Teleport to Coords",
+    Icon = "compass",
+    Callback = function()
+        local lp = game.Players.LocalPlayer
+        local x = tonumber(Nexus.Flags["TpX"]) or 0
+        local y = tonumber(Nexus.Flags["TpY"]) or 0
+        local z = tonumber(Nexus.Flags["TpZ"]) or 0
+        pcall(function()
+            if lp.Character then
+                lp.Character:SetPrimaryPartCFrame(CFrame.new(x, y, z))
+            end
+        end)
+    end,
+})
+
+-- ══════════════════════════════════════════════════
+-- TAB 5: VISUAL
+-- ══════════════════════════════════════════════════
+local Visual = Win:CreateTab("Visual", "star")
+
+Visual:CreateSection("World Visuals")
+
+Visual:CreateToggle({
+    Name = "Fullbright",
+    Description = "Max brightness in all environments",
+    CurrentValue = false,
+    Flag = "Fullbright",
+    Callback = function(v)
+        pcall(function()
+            local Lighting = game:GetService("Lighting")
+            Lighting.Brightness = v and 2 or 1
+            Lighting.ClockTime = v and 14 or 14
+            Lighting.FogEnd = v and 100000 or 100000
+            Lighting.GlobalShadows = not v
+        end)
+    end,
+})
+
+Visual:CreateToggle({
+    Name = "Remove Fog",
+    Description = "Removes all atmospheric fog",
+    CurrentValue = false,
+    Flag = "RemoveFog",
+    Callback = function(v)
+        pcall(function()
+            game:GetService("Lighting").FogEnd = v and 999999 or 100000
+        end)
+    end,
+})
+
+Visual:CreateSlider({
+    Name = "Field of View",
+    Range = {10, 120},
+    Increment = 1,
+    CurrentValue = 70,
+    Suffix = "°",
+    Flag = "FOV",
+    Callback = function(v)
+        pcall(function()
+            workspace.CurrentCamera.FieldOfView = v
+        end)
+    end,
+})
+
+Visual:CreateSection("Character Visuals")
+
+Visual:CreateToggle({
+    Name = "Hide Local Character",
+    Description = "Makes your character invisible",
+    CurrentValue = false,
+    Flag = "HideChar",
+    Callback = function(v)
+        pcall(function()
+            local lp = game.Players.LocalPlayer
+            if lp and lp.Character then
+                for _, p in ipairs(lp.Character:GetDescendants()) do
+                    if p:IsA("BasePart") or p:IsA("Decal") then
+                        p.LocalTransparencyModifier = v and 1 or 0
+                    end
+                end
+            end
+        end)
+    end,
+})
+
+Visual:CreateColorPicker({
+    Name = "Chat Color",
+    Color = Color3.fromRGB(255, 255, 255),
+    Flag = "ChatColor",
+    Callback = function(c) end,
+})
+
+Visual:CreateSection("Camera")
+
+Visual:CreateToggle({
+    Name = "Freecam",
+    Description = "Unlock camera from character",
+    CurrentValue = false,
+    Flag = "Freecam",
+    Callback = function(v) end,
+})
+
+Visual:CreateSlider({
+    Name = "Camera Zoom",
+    Range = {0, 128},
+    Increment = 1,
+    CurrentValue = 12,
+    Suffix = "",
+    Flag = "CamZoom",
+    Callback = function(v)
+        pcall(function()
+            workspace.CurrentCamera.CFrame = workspace.CurrentCamera.CFrame
+        end)
+    end,
+})
+
+-- ══════════════════════════════════════════════════
+-- TAB 6: MISC
+-- ══════════════════════════════════════════════════
+local Misc = Win:CreateTab("Misc", "settings")
+
+Misc:CreateSection("Chat")
+
+Misc:CreateToggle({
+    Name = "Spam Chat",
+    Description = "Repeatedly sends a message in chat",
+    CurrentValue = false,
+    Flag = "SpamChat",
+    Callback = function(v) end,
+})
+
+Misc:CreateInput({
+    Name = "Spam Message",
+    PlaceholderText = "Enter message...",
+    Flag = "SpamMsg",
+    Callback = function(v) end,
+})
+
+Misc:CreateButton({
+    Name = "Send Chat Message",
+    Icon = "send",
+    Callback = function()
+        local msg = tostring(Nexus.Flags["SpamMsg"] or "Hello!")
+        pcall(function()
+            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(msg, "All")
+        end)
+    end,
+})
+
+Misc:CreateSection("Server")
+
+Misc:CreateButton({
+    Name = "Copy Server ID",
+    Icon = "copy",
+    Callback = function()
+        local id = tostring(game.JobId)
+        pcall(function() setclipboard(id) end)
+        Win:Notify({Title="Copied!", Content="Server ID: "..id, Duration=3, Icon="check"})
+    end,
+})
+
+Misc:CreateButton({
+    Name = "Hop Server",
+    Icon = "refresh",
+    Callback = function()
+        Win:Notify({Title="Server Hop", Content="Finding new server...", Duration=2, Icon="wifi"})
+        pcall(function()
+            local TS = game:GetService("TeleportService")
+            local result = TS:GetSortedGameInstances(game.PlaceId, 10)
+            for _, s in ipairs(result) do
+                if s.JobId ~= game.JobId and s.CurrentPlayers < s.MaxPlayers then
+                    TS:TeleportToPlaceInstance(game.PlaceId, s.JobId)
+                    return
+                end
+            end
+        end)
+    end,
+})
+
+Misc:CreateSection("Info")
+
+Misc:CreateParagraph({
+    Title = "My Hub - Script Info",
+    Content = "Version: 1.0\nLibrary: NexusLib v2.1\nTheme: Cyan\n\nToggle UI with RightShift or click the hub button.",
+})
+
+Misc:CreateLabel("Made with NexusLib v2.1")
+
+-- ══════════════════════════════════════════════════
+-- INITIAL NOTIFICATION
+-- ══════════════════════════════════════════════════
+Win:Notify({
+    Title   = "My Hub Loaded!",
+    Content = "All features ready. Press RightShift to toggle.",
+    Duration = 5,
+    Icon    = "zap",
+})
